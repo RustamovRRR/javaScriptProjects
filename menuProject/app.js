@@ -71,31 +71,25 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak smt",
+    category: "dinner",
+    price: 34.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 // selecting section center element
 const sectionCenter = document.querySelector(".section-center");
 
-// selecting filter btns
-const filterBtns = document.querySelectorAll(".filter-btn");
+// selecting btns container
+const container = document.querySelector(".btn-container");
 
 window.addEventListener("DOMContentLoaded", function () {
   displayMenuItems(menu);
-});
-
-// filter categories
-filterBtns.forEach(function (btn) {
-  btn.addEventListener("click", function (e) {
-    const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter(function (item) {
-      return item.category === category;
-    });
-    if (category === "all") {
-      displayMenuItems(menu);
-    } else {
-      displayMenuItems(menuCategory);
-    }
-  });
+  displayBtns();
 });
 
 function displayMenuItems(menuItems) {
@@ -115,4 +109,42 @@ function displayMenuItems(menuItems) {
   });
   displayMenu = displayMenu.join("");
   sectionCenter.innerHTML = displayMenu;
+}
+
+function displayBtns() {
+  // using reduce method
+  const categories = menu.reduce(
+    function (values, item) {
+      if (!values.includes(item.category)) {
+        values.push(item.category);
+      }
+      return values;
+    },
+    ["all"]
+  );
+  // using map methods
+  const categoryBtns = categories
+    .map(function (item) {
+      return `<button class="filter-btn" type="button" data-id="${item}">${item}</button>`;
+    })
+    .join("");
+
+  // adding to the container element
+  container.innerHTML = categoryBtns;
+  // selecting filter btns
+  const filterBtns = container.querySelectorAll(".filter-btn");
+  // filter categories
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      const category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter(function (item) {
+        return item.category === category;
+      });
+      if (category === "all") {
+        displayMenuItems(menu);
+      } else {
+        displayMenuItems(menuCategory);
+      }
+    });
+  });
 }
