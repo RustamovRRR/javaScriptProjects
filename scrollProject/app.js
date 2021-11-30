@@ -26,5 +26,23 @@ navToggle.addEventListener("click", function () {
 });
 // ********** fixed navbar ************
 
+const navbar = document.querySelector("#nav");
+const topLink = document.querySelector(".top-link");
+
+window.addEventListener("scroll", function () {
+  const scrollHeight = window.scrollY;
+  const navbarHeight = navbar.getBoundingClientRect().height;
+  if (scrollHeight > navbarHeight) {
+    navbar.classList.add("fixed-nav");
+  } else {
+    navbar.classList.remove("fixed-nav");
+  }
+  if (scrollHeight > 500) {
+    topLink.classList.add("show-link");
+  } else {
+    topLink.classList.remove("show-link");
+  }
+});
+
 // ********** smooth scroll ************
 // select links
