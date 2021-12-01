@@ -27,7 +27,13 @@ const deadline = document.querySelector(".deadline");
 const items = document.querySelectorAll(".deadline-format h4");
 
 // working with date onject
-let futureDate = new Date(2021, 11, 3, 19, 10);
+let temDate = new Date();
+const tempYear = temDate.getFullYear();
+const tempMonth = temDate.getMonth();
+const tempDay = temDate.getDate();
+// let futureDate = new Date(2021, 11, 3, 19, 10);
+let futureDate = new Date(tempYear, tempMonth, tempDay + 10, 11, 30);
+
 const year = futureDate.getFullYear();
 const hour = futureDate.getHours();
 const minutes = futureDate.getMinutes();
